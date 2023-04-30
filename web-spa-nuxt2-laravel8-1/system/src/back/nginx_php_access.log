@@ -1,0 +1,5 @@
+172.19.0.1 - - [30/Apr/2023:22:30:19 +0000] "GET /api/public/ HTTP/1.1" 500 556379 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+172.19.0.1 - - [30/Apr/2023:22:31:48 +0000] "GET /api/public/ HTTP/1.1" 200 17622 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+172.19.0.1 - - [30/Apr/2023:22:49:41 +0000] "GET /api/public/ HTTP/1.1" 200 18122 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+172.19.0.1 - - [30/Apr/2023:22:49:45 +0000] "GET /api/public/login HTTP/1.1" 200 4988 "http://localhost:1321/api/public/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+172.19.0.1 - - [30/Apr/2023:23:07:41 +0000] "GET /api/public/login HTTP/1.1" 200 4988 "http://localhost:1321/api/public/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"

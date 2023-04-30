@@ -1,0 +1,3 @@
+2023/04/30 22:29:07 [error] 22#22: *2 "/var/www/html/front/myfront/.output/public/index.php" is not found (2: No such file or directory), client: 172.19.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:1321"
+2023/04/30 22:29:07 [error] 22#22: *2 open() "/var/www/html/front/myfront/.output/public/favicon.ico" failed (2: No such file or directory), client: 172.19.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:1321", referrer: "http://localhost:1321/"
+2023/04/30 22:29:34 [error] 22#22: *2 "/var/www/html/front/myfront/.output/public/index.php" is not found (2: No such file or directory), client: 172.19.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:1321"
