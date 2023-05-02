@@ -16,10 +16,14 @@ import { createApp } from 'vue';
 const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+//app.component('example-component', ExampleComponent);
 
 import FormComponent from './components/Form.vue';
-app.component('form-component', FormComponent);
+//app.component('form-component', FormComponent);
+
+import ApiSampleComponent from './components/ApiSample.vue';
+app.component('apisample-component', ApiSampleComponent);
+
 
 /**
  * The following block of code may be used to automatically register your

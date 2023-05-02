@@ -7,7 +7,7 @@
 
   <body>
     <div id="app" class="m-8 p-8">
-      <form-component></form-component>
+      <apisample-component/>
     </div>
   </body>
 
