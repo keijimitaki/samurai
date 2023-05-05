@@ -18,8 +18,8 @@ const app = createApp({});
 import ExampleComponent from './components/ExampleComponent.vue';
 //app.component('example-component', ExampleComponent);
 
-import FormComponent from './components/Form.vue';
-//app.component('form-component', FormComponent);
+import OpenAIAPITrialComponent from './components/OpenAIAPITrial.vue';
+app.component('openai-component', OpenAIAPITrialComponent);
 
 import ApiSampleComponent from './components/ApiSample.vue';
 app.component('apisample-component', ApiSampleComponent);

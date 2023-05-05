@@ -19,3 +19,7 @@ Route::get('students', [App\Http\Controllers\ApiController::class, 'getAllStuden
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('openaiweb1', [App\Http\Controllers\OpenAIController::class, 'callApiByOpenAIPhp']);
+Route::post('openaiedit', [App\Http\Controllers\OpenAIController::class, 'callEditApiByOpenAiPhp']);
+
