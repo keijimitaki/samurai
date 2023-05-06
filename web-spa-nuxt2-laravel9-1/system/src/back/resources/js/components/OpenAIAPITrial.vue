@@ -12,8 +12,14 @@
             <h2 class="text-base font-semibold leading-7 text-gray-900">OpenAI API Edit</h2>
             <p class="mt-1 text-sm leading-6 text-gray-600">画像生成</p>
 
+            <div class="col-span-full mt-8">
+              <label for="prompt" class="block text-sm font-medium leading-6 text-gray-900">Prompt</label>
+              <div class="mt-2">
+                <input id="prompt" name="prompt" type="text" v-model="state.prompt" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              </div>
+            </div>
             
-            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
               <!-- Original -->
               <div class="sm:col-span-2 sm:col-start-1">
@@ -107,7 +113,7 @@
           
           </div>
 
-          <div class="col-span-full">
+          <div class="col-span-full mt-2">
             <label for="about" class="block text-sm font-medium leading-6 text-gray-900">レスポンス</label>
             <div class="mt-2">
               <textarea id="about" name="about" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" >{{ state.resultImage }}</textarea>
@@ -151,6 +157,7 @@ export default {
 
     const state = reactive({
       loading: false,
+      prompt: null,
       originalImage: null,
       originalImageFile: null,
       focusedOriginalImage: false,
@@ -171,6 +178,8 @@ export default {
         let form = new FormData()
         form.append('srcImage', state.originalImageFile)
         form.append('maskImage', state.maskImageFile)
+        form.append('prompt', state.prompt)
+        //console.log('state', state)
 
         //const response = await axios.get('./api/openaiweb1')
         const response = await axios.post('./api/openaiedit', form)
@@ -250,9 +259,9 @@ export default {
         }
         reader.readAsDataURL(file);
 
-
       }
 
+      
 
 
 

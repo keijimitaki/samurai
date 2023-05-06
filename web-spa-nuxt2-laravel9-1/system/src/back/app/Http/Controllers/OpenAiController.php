@@ -38,22 +38,18 @@ class OpenAIController extends Controller
     public function callEditApiByOpenAiPhp(Request $request)
     {
 
-        $srcImage = $request->file('srcImage')->getClientOriginalName();
-        $maskImage = $request->file('maskImage')->getClientOriginalName();
-        //$file_path = $request->file('srcImage')->getRealPath();
-        //return file_get_contents($request->file('file')->getRealPath()); 
-        //return file_get_contents($file_path);
-        //return $file_path;
-        //return $maskImage;
+        // $srcImage = $request->file('srcImage')->getClientOriginalName();
+        // $maskImage = $request->file('maskImage')->getClientOriginalName();
 
         $srcImageRealPath = $request->file('srcImage')->getRealPath();
         $maskImageRealPath = $request->file('maskImage')->getRealPath();
 
+        $prompt = $request->input('prompt');
 
         $response = OpenAI::images()->edit([
             'image' => fopen($srcImageRealPath, 'r'),
             'mask' => fopen($maskImageRealPath, 'r'),
-            'prompt' => 'A sunlit indoor lounge area with a pool containing a flamingo',
+            'prompt' => isset($prompt) ? $prompt : 'A sunlit indoor lounge area with a pool containing a flamingo',
             'n' => 1,
             'size' => '256x256',
             'response_format' => 'url',
