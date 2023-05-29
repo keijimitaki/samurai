@@ -9,16 +9,20 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxt-hero-icons/solid": "^1.0.1",
+    "@vue-hero-icons/outline": "^1.7.2",
+    "@vue-stripe/vue-stripe": "^4.5.0",
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
     "vue": "^2.7.10",
+    "vue-heroicons": "^0.9.4",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/tailwindcss": "^5.3.3",
+    "@nuxtjs/tailwindcss": "^5.3.5",
     "postcss": "^8.4.17"
   }
 }

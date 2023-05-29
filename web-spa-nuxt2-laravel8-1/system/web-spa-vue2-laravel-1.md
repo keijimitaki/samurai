@@ -1,5 +1,5 @@
 １．構成
-#php7.4 + Laravel8 API
+#php8.1 + Laravel9 API
 # Nuxt2（SSG）, Stripe, User 
 
 
@@ -11,16 +11,16 @@ http://localhost:1321/api/public/
 
 
 
-２．バックエンドの設定　laravel8
+２．バックエンドの設定　laravel9
 src/backフォルダ内を全て削除
 src/frontフォルダ内のindex.html以外削除
 
 ２－１．Laravelのインストール
 dockerコンテナに入る
-docker-compose exec -it textbook-spa-vue2-laravel8-back bash
+docker-compose exec -it textbook-spa-vue2-laravel9-back bash
 
 cd api
-composer create-project laravel/laravel:"8.*" .
+composer create-project laravel/laravel:"9.*" .
 
 ２－２．動作確認
 docker-compose up
@@ -35,14 +35,9 @@ https://maasaablog.com/development/backend/php/laravel/891/
 composer require laravel/ui
 php artisan ui vue --auth
 
-
-npm run install
+npm install
 npm run dev
-
-# npm installでエラーがでたので、警告の通り以下を実行
-npm install vue-loader@^15.9.8 --save-dev --legacy-peer-deps
-
-npm run watch-poll
+npm run build
 
 以下にアクセスしてLoginリンクをクリック
 Login画面が表示されたらOK
@@ -51,7 +46,7 @@ http://localhost:1321/api/public/
 
 ３．フロントエンドの設定　Nuxt2
 dockerコンテナに入る
-docker-compose run -it textbook-spa-vue2-laravel8-front bash
+docker-compose run -it textbook-spa-vue2-laravel9-front bash
 
 ３－１．Nuxt2のインストール
 https://nuxtjs.org/docs/get-started/installation
