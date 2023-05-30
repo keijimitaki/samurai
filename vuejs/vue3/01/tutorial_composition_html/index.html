@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+  </head>
+  <body>
+
+    <div id="app">
+      <p>Todo id: {{ todoId }}</p>
+      <button @click="todoId++">Fetch next todo</button>
+      <p v-if="!todoData">Loading...</p>
+      <pre v-else>{{ todoData }}</pre>
+    </div>  
+
+  <!-- <script type="module" src="/src/main.js"></script> -->
+  <script type="module">
+  import { createApp, ref, watch } from 'https://unpkg.com/vue@3.2.4/dist/vue.esm-browser.prod.js'
+
+  createApp({
+    setup() {
+      const todoId = ref(1)
+      const todoData = ref(null)
+
+      async function fetchData() {
+        todoData.value = null
+        const res = await fetch(
+          `https://jsonplaceholder.typicode.com/todos/${todoId.value}`
+        )
+        todoData.value = await res.json()
+      }
+
+      fetchData()
+
+      watch(todoId, fetchData)
+
+      return {
+        todoId,
+        todoData
+      }
+    }
+  }).mount('#app')
+
+  </script>
+
+
+  </body>
+</html>
+
