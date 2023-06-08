@@ -1,0 +1,5 @@
+flask==2.0.1
+SQLAlchemy
+mysql-connector-python
+pymysql
+mysqlclient

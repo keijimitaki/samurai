@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  samurai-web-python-flask-web:
+    container_name: 'samurai.web.python.flask.web'
+    build:
+      context: .
+      dockerfile: dockerfiles/nginx.dockerfile
+    ports:
+      - '61111:80'
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      samurai-web-python-flask-python:
+        condition: service_started
+  samurai-web-python-flask-python:
+    container_name: 'samurai.web.python.flask.python'
+    build:
+      context: .
+      dockerfile: dockerfiles/python.dockerfile
+    volumes:
+      - ./src:/var/www/html:delegated
+    command: flask run --host=0.0.0.0 --port=3000
+    depends_on:
+      samurai-web-python-flask-mysql:
+        condition: service_started
+
+  samurai-web-python-flask-mysql:
+    container_name: 'samurai.web.python.flask.mysql'
+    image: mysql:5.7
+    restart: always
+#    platform: linux/x86_64
+    env_file:
+      - ./db/env/mysql.env
+    volumes:
+      - ./db/data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  samurai-web-python-flask-myadmin:
+    container_name: 'samurai.web.python.flask.myadmin'
+    depends_on:
+      - samurai-web-python-flask-mysql
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: samurai-web-python-flask-mysql
+    restart: always
+    ports:
+      - "61112:80"
+
+#networks:
+#  default:
+#    external:
+#      name: rd-shared
