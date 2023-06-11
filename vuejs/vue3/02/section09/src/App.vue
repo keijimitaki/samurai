@@ -6,11 +6,26 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
 const store = useStore()
+const router = useRouter()
 
 function increment() {
   console.log('increment from App.vue')
   store.commit('increment')
 }
+
+const logoutAction = () => store.dispatch('auth/logoutAction')
+const isLogin = () => store.getters['auth/isLogin']
+
+function logout(){
+  logoutAction()
+  router.push('/')
+  //console.log(store.state.auth.isLogin)
+}
+
+function check(){
+  console.log(store.getters['auth/isLogin'])
+}
+
 
 </script>
 
@@ -24,15 +39,28 @@ function increment() {
     <div class="wrapper">
 
       <nav style="margin: 0 0.5rem; padding:0.25rem 2rem;">
-        <RouterLink to="/">Login</RouterLink>
-        <RouterLink to="/setting">Setting</RouterLink>
+        <RouterLink v-if="!isLogin()" to="/">Login</RouterLink>
+        <RouterLink v-if="isLogin()" to="/setting">Setting</RouterLink>
+        <RouterLink v-if="isLogin()" to="/add">Add User</RouterLink>
       </nav>
 
-      
+
     </div>
   </header>
 
   <RouterView />
+
+  
+  <div style="margin:1rem 0; padding: 0.5rem 0;">
+    <hr/>
+    <div style="display:flex; justify-content:space-between;padding: 1rem;">
+      <div>ログインユーザー： {{ store.state.auth.loginUser }}</div>
+      {{ store.state.auth.isLogin }}
+      <div @click="logout" >Logout</div>
+      <!-- <button @click="check" >check</button> -->
+    </div>
+  </div>
+
 </template>
 
 <style scoped>

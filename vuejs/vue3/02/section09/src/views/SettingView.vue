@@ -1,7 +1,10 @@
 <script setup>
+// script setupでは Mapヘルパーは使わない
+// https://github.com/vuejs/vuex/blob/main/examples/composition/shopping-cart/components/ShoppingCart.vue
+// 
 //import TheWelcome from '../components/TheWelcome.vue'
 import { ref, reactive, computed, onMounted, watch } from 'vue'
-import { useStore, mapActions } from 'vuex'
+import { useStore } from 'vuex'
 
 const store = useStore()
 
@@ -11,12 +14,15 @@ const count = computed(() => {
 
 const visibleUsers = computed(() => store.getters.visibleUsers )
 const unVisibleUsers = computed(() => store.getters.unVisibleUsers )
+
 const editUserId = ref(-1)
 
 function addCount() {
   console.log('increment from HomeView.vue')
   store.commit('addCount', 10)
 }
+
+const storeDebug = ref(false)
 
 const editUser = reactive({
   id: -1,
@@ -30,6 +36,8 @@ function selectUser(id) {
   editUser.value = store.getters.getUserById(id)
 
 }
+
+
 
 </script>
 
@@ -88,5 +96,15 @@ function selectUser(id) {
         <div><input type="checkbox" v-model="editUser.value.isVisible">表示</div>
       </div>  
     </div>
+    
+    <div style="background-color: floralwhite;font-weight: bold; margin: 0.7rem 0; padding:0.5rem;">Storeデバッグ
+      <button v-if="storeDebug" @click="storeDebug = !storeDebug" >非表示</button>
+      <button v-if="!storeDebug" @click="storeDebug = !storeDebug">表示</button>
+      <div v-if="storeDebug">
+        {{ store }}
+      </div>
+    </div>
+
+
   </main>
 </template>

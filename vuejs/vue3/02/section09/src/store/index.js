@@ -1,8 +1,11 @@
 import { createStore } from 'vuex'
 import auth from './auth'
+//import user from './user'
+
 // Vuexについて
 // https://vuex.vuejs.org/ja/guide/
 // https://www.udemy.com/course/vuejs-basic/learn/lecture/23472056#overview
+
 
 const store = createStore({
   state () {
@@ -21,7 +24,10 @@ const store = createStore({
     },
     addCount( state, payload ){
       state.count += payload
-    }
+    },
+    addUser( state, payload ){
+      state.users.push(payload)
+    }    
   },
   actions: {
     incrementAction ({commit}) {
@@ -29,24 +35,39 @@ const store = createStore({
     },
     addCountAction ( {commit}, payload ){
       commit('addCount', payload)
+    },
+    addUserAction ( {commit}, payload ){
+      commit('addUser', payload)
     }
   },
 
   getters: {
     allUsers( state ){
-      return state.users.filter( user => user.isVisible)
+      return state.users
     },
     visibleUsers: state => state.users.filter( user => user.isVisible),
     unVisibleUsers: state => state.users.filter( user => !user.isVisible),
     
     getUserById: state => id => {
       return state.users.find( user => user.id === id )
+    },
+
+    getMaxUserId: state => {
+      let maxUserId = 0;
+      state.users.forEach(element => {
+        if (element.id > maxUserId) {
+          maxUserId = element.id
+        }
+      })
+      return maxUserId
     }
+
   },
 
   modules: {
-    auth
+    auth,
   }
+
 })
 
 export default store
