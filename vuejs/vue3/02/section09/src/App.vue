@@ -3,31 +3,29 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
 
-function addCount() {
+function increment() {
+  console.log('increment from App.vue')
   store.commit('increment')
 }
-
-const count = computed(() => {
-  return store.state.count
-})
 
 </script>
 
 <template>
   <header>
-    <span @click="addCount" style="cursor: pointer;">
-      <img alt="Vue logo" class="logo" src="@/assets/button.png" width="125" height="125" />
+    <span @click="increment" style="cursor: pointer;">
+      <HelloWorld msg="You push it!" /> 
+      <img alt="push button1" class="logo" src="@/assets/button.png" width="125" height="125" />
     </span>
 
     <div class="wrapper">
-      <HelloWorld msg="You push it!" /> 
 
-      <nav style="margin: 0 0.5rem; padding:0.5rem 2rem;">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+      <nav style="margin: 0 0.5rem; padding:0.25rem 2rem;">
+        <RouterLink to="/">Login</RouterLink>
+        <RouterLink to="/setting">Setting</RouterLink>
       </nav>
 
       

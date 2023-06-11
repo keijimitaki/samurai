@@ -11,10 +11,6 @@ defineProps({
   }
 })
 
-function addCount() {
-  store.commit('increment')
-}
-
 const count = computed(() => {
   return store.state.count
 })

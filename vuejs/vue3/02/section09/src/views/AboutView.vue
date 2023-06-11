@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h2><span style="text-decoration: overline;">About page</span></h2>
   </div>
 </template>
 
