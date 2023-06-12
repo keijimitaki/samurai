@@ -17,40 +17,18 @@ const loginUser = reactive({
   isVisible: false,
 });
 
-//const { loginAction } = mapActions('auth',['loginAction'])
-
-const loginAction = () => mapActions('auth',['loginAction'])
-const loginAction2 = (user) => store.dispatch('auth/loginAction', user)
+const loginAction = (user) => store.dispatch('auth/loginAction', user)
 
 function login() {
   const userId = 1
-  console.log(store.getters.getUserById(userId))
   loginUser.value = store.getters.getUserById(userId)
-
-  //loginAction(loginUser)
-  
-  //login(loginUser.value)
- 
-  doLogin(loginUser.value)
-
+  loginAction(loginUser.value)
   router.push('/setting')
 
 }
 
-const currentStore = computed(() => store.state)
-const currentAuthStore = computed(() => store.state.auth)
-
 // https://zukucode.com/2017/05/vuex-module-state.html
 function doLogin(user) {
-  console.log(store.state.auth.loginUser)
-  //loginAction({id: 99, name: '🍖', isVisible: true})
-  //loginAction2({id: 99, name: '🍖', isVisible: true})
-  loginAction2(user)
-  console.log(store.state.auth.loginUser)
-  //console.log(store.state.moduleA)
-  //console.log(store.state.moduleA.getters)
-  //console.log(store.moduleA)
-
 }
 
 

@@ -28,6 +28,7 @@ function addUser() {
   user.isVisible = newUser.isVisible
 
   store.dispatch('addUserAction', user)
+  newUser.name = ''
 }
 
 
