@@ -19,3 +19,7 @@ npm install @use-expo/font@2.0.0
 
 ## https://www.npmjs.com/package/react-native-dotenv
 npm install -D react-native-dotenv
+
+
+test@abc.jp
+testabc

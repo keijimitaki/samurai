@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, 
   TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import Button from '../components/Button';
 
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
 
 export default function SignUpScreen(props) {
@@ -11,19 +11,16 @@ export default function SignUpScreen(props) {
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
 
-  const auth = getAuth()
-
   function handlePress() {
+    const auth = getAuth()
 
     createUserWithEmailAndPassword( auth, email, password )
       .then((userCredential) => {
         const {user} = userCredential
-        console.log('ユーザー作成！！', user.id)
-
+        console.log('ユーザー作成！！', user.uid)
         navigation.reset({
           index: 0,
           routes: [{name: 'MemoList'}]})
-    
       })
       .catch( (error) => {
         console.log('エラー発生！！', error.code, error.message )
