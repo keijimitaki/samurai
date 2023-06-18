@@ -19,6 +19,11 @@ function goToHome() {
 const isBookListMenu = ref(false)
 const activeManu = ref(0)
 
+function checkProcessEnv() {
+  //console.log(process.env)
+  console.log(import.meta.env)
+  
+}
 
 </script>
 
@@ -30,7 +35,7 @@ const activeManu = ref(0)
         <img v-else-if="activeManu == 1" alt="Vue logo" class="logo" src="@/assets/auto_stories_black_24dp.svg" width="125" height="125" />
         <img v-else="activeManu == 2" alt="Vue logo" class="logo" src="@/assets/account_circle_black_24dp.svg" width="125" height="125" />
     </Transition>
-
+   
     <div class="wrapper">
 
       <HelloWorld :msg="activeManu == 0 ? 'You did it!' : (activeManu == 1 ? 'You read it!' : 'You find it!') " />
@@ -40,12 +45,14 @@ const activeManu = ref(0)
         <RouterLink to="/about" @click="activeManu = 0">About</RouterLink>
         <RouterLink to="/book" @click="activeManu = 1">BookList</RouterLink>
         <RouterLink to="/user/profile" @click="activeManu = 2">User</RouterLink>
+        <router-link to="/item/1">Item</router-link>
       </nav>
 
       <!-- 
       <button @click="checkRouteInfo">ルート情報</button>
       <button @click="goToHome">戻る</button> 
       -->
+      <button @click="checkProcessEnv">process.envを表示</button>
 
     </div>
   </header>

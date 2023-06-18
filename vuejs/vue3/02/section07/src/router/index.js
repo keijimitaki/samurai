@@ -3,12 +3,21 @@ import HomeView from '../views/HomeView.vue'
 import AboutViewSub from '../views/AboutViewSub.vue'
 import BookListView from '../views/BookListView.vue'
 import BookDetailView from '../views/BookDetailView.vue'
+import Item from '../views/Item.vue'
 import UserView from '../views/UserView.vue'
 import UserProfile from '../components/UserProfile.vue'
 import UserPost from '../components/UserPost.vue'
 
+// Vue Router history mode
+// https://router.vuejs.org/guide/essentials/history-mode.html
+
 const router = createRouter({
+  // Viteの場合は、import.meta.env.BASE_URL
+  // https://vitejs.dev/guide/env-and-mode.html
   history: createWebHistory(import.meta.env.BASE_URL),
+  // createRouterのbase optionはvue-router v4では廃止
+  // https://router.vuejs.org/guide/migration/#new-history-option-to-replace-mode
+  // base: '',
   routes: [
     {
       path: '/',
@@ -57,6 +66,15 @@ const router = createRouter({
       ]
      
     },
+    {
+      path:'/item/:id',
+      name:'Item',
+      component: Item,
+      // beforeEnter:(to, from, next)=> {
+  
+      // }
+    },
+
     // https://router.vuejs.org/guide/migration/#removed-star-or-catch-all-routes
     {
       path: '/:pathMatch(.*)*',
