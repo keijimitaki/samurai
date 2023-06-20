@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, Text, StyleSheet, 
   TextInput, KeyboardAvoidingView } from 'react-native';
+
 import { string, bool, shape } from 'prop-types';
 
 import AppBar from '../components/AppBar';
@@ -9,15 +10,45 @@ import CircleButton from '../components/CircleButton';
 
 import Icon from '../components/Icon'
 
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, QuerySnapshot } from "firebase/firestore";
+import { auth, db } from '../util/firebase'
+
 
 export default function MemoCreateScreen(props) {
   const { navigation } = props
+  const [ bodyText, setBodyText ] = useState('') 
+
+  const handlePress = async() => {
+    
+    try {
+      const currentUser = auth.currentUser
+      const docRef = await addDoc(collection(db, `users/${currentUser.uid}/memos`), {
+        bodyText,
+        updatedAt: new Date(),
+      })
+
+      if (docRef) {
+        console.log('Created' , docRef.id)
+        navigation.goBack()
+      }
+  
+    } catch (error) {
+      console.log('エラー発生', error)
+    }
+
+  }
+      
   return(
     <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={styles.inputContainer}>
-        <TextInput value="" multiline styles={styles.input} />
+        <TextInput 
+          value={bodyText} 
+          multiline 
+          styles={styles.input}
+          onChangeText={(text)=> {setBodyText(text) }}
+          autoFocus />
       </View>
-      <CircleButton name="check" onPress={()=> navigation.goBack()}/>
+      <CircleButton name="check" onPress={handlePress}/>
     </KeyboardAvoidingView>
   );
 }

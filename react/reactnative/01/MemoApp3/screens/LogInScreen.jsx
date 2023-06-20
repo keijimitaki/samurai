@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, 
   TextInput, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native';
-import { string, bool, shape } from 'prop-types';
-
-import AppBar from '../components/AppBar';
-import MemoList from '../components/MemoList';
 import Button from '../components/Button';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
-import Icon from '../components/Icon'
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
-
+import { auth } from '../util/firebase'
 
 export default function LogInScreen(props) {
   const { navigation } = props
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
-  const auth = getAuth()
   const user = auth.currentUser
 
   useEffect(()=> {
