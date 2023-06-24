@@ -1,13 +1,13 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
-import { getAuth, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
+import { auth } from '../utils/firebase'
 
 export default function LogOutButton() {
   const navigation = useNavigation()
 
   function handlePress() {
-    const auth = getAuth()
     signOut(auth).then(()=>{
         navigation.reset({
           index: 0,

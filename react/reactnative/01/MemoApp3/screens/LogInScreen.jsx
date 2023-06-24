@@ -2,35 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, 
   TextInput, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native';
 import Button from '../components/Button';
-import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import Loading from '../components/Loading'
 
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../utils/firebase'
 
 export default function LogInScreen(props) {
   const { navigation } = props
   const [ email, setEmail ] = useState("")
   const [ password, setPassword ] = useState("")
-  const user = auth.currentUser
+  const [ isLoading, setLoading ] = useState(true)
 
   useEffect(()=> {
-
-    if (user) {
-      console.log('🌟already log in')
-    } else {
-      console.log('💀not log in')
-    } 
 
     const unsubscribe = onAuthStateChanged(auth, (user)=>{
       console.log('onAuthStateChanged called')
 
       if (user) {
-        console.log('already log in')
+        console.log('😄　log in')
         navigation.reset({
           index: 0,
           routes: [{name: 'MemoList'}]})
       } else {
-        console.log('not log in')
+        console.log('👋 not log in')
       } 
+      setLoading(false)
+
     })
 
     return unsubscribe
@@ -39,6 +36,8 @@ export default function LogInScreen(props) {
 
 
   function handlePress() {
+    
+    setLoading(true)
 
     signInWithEmailAndPassword( auth, email, password )
       .then((userCredential) => {
@@ -52,11 +51,15 @@ export default function LogInScreen(props) {
         Alert.alert(error.code)
         console.log('エラー発生！！', error.code, error.message )
       })
-  
+      .then(()=>{
+        setLoading(false)  
+
+      })
   }
 
   return(
     <View style={styles.container}>
+      <Loading isLoading={isLoading} />
       <View style={styles.inner}>
         <Text style={styles.title}>Log In</Text>
         <TextInput 
