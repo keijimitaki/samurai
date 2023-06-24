@@ -1,31 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { string, bool, shape } from 'prop-types';
 
 import AppBar from '../components/AppBar';
 import MemoList from '../components/MemoList';
 import CircleButton from '../components/CircleButton';
-
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { auth, db } from '../utils/firebase'
+import { dateToString } from '../utils/date'
 
 export default function MemoDetailScreen(props) {
-  const { navigation } = props
+  const { navigation, route } = props
+  const { id } = route.params
+  const [memo, setMemo] = useState(null)
+
+  useEffect(()=> {
+    (async() => {
+      const currentUser = auth.currentUser
+      let unsub = ()=> {}
+      if (currentUser) {
+        unsub = onSnapshot(doc(db, 'users', currentUser.uid, 'memos', id), (doc) => {
+          const data = doc.data()
+          setMemo({
+            id: doc.id,
+            bodyText: data.bodyText,
+            updatedAt: data.updatedAt.toDate(),
+          })
+        });
+  
+      }
+      return unsub
+    })()
+
+  }, [])
+
   return(
     <View style={styles.container}>
       <View style={styles.memoHeader}>
-        <Text style={styles.memoTitle}>買い物リスト</Text>
-        <Text style={styles.memoDate}>2020年12月24日 10:00</Text>
+        <Text style={styles.memoTitle} numberOfLines={1}>{memo && memo.bodyText}</Text>
+        <Text style={styles.memoDate}>{memo && dateToString(memo.updatedAt)}</Text>
       </View>
       <ScrollView style={styles.memoBody}>
         <Text style={styles.memoText}>
-          買い物リスト
-          書体やレイアウトなどを確認するために用います。
-          本文用なので使い方を間違えると不自然に見えることもありますので要注意。
+          {memo && memo.bodyText}
         </Text>
       </ScrollView>
-      <CircleButton style={{ top: 60, buttom: 'auto' }} name="pencil" onPress={ ()=> {navigation.navigate('MemoEdit')} }/>
+      <CircleButton style={{ top: 60, buttom: 'auto' }} name="pencil" 
+        onPress={ ()=> {navigation.navigate('MemoEdit', {id: memo.id, bodyText: memo.bodyText})} }/>
     </View>    
   );
 }
+
+MemoDetailScreen.propTypes = {
+  route: shape({
+    params: shape({id: string})
+  }).isRequired
+}
+
 
 const styles = StyleSheet.create({
   container: {

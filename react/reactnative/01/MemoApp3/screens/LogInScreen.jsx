@@ -4,7 +4,7 @@ import { View, ScrollView, Text, StyleSheet,
 import Button from '../components/Button';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
-import { auth } from '../util/firebase'
+import { auth } from '../utils/firebase'
 
 export default function LogInScreen(props) {
   const { navigation } = props

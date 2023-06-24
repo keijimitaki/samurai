@@ -11,7 +11,7 @@ import CircleButton from '../components/CircleButton';
 import Icon from '../components/Icon'
 
 import { collection, addDoc, doc, setDoc, getDoc, getDocs, QuerySnapshot } from "firebase/firestore";
-import { auth, db } from '../util/firebase'
+import { auth, db } from '../utils/firebase'
 
 
 export default function MemoCreateScreen(props) {
