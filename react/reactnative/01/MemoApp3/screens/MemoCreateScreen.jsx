@@ -29,7 +29,11 @@ export default function MemoCreateScreen(props) {
 
       if (docRef) {
         console.log('Created' , docRef.id)
-        navigation.goBack()
+        // navigation.goBack()
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'MemoList'}]})
+
       }
   
     } catch (error) {

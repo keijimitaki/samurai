@@ -3,7 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import MemoList from '../components/MemoList';
 import CircleButton from '../components/CircleButton';
 import LogOutButton from '../components/LogOutButton';
-import { collection, addDoc, doc, setDoc, getDoc, getDocs, QuerySnapshot } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, QuerySnapshot, 
+  onSnapshot, query, orderBy } from "firebase/firestore";
 import { auth, db } from '../util/firebase'
 
 export default function MemoListScreen(props) {
@@ -18,12 +19,18 @@ export default function MemoListScreen(props) {
 
 
   useEffect(()=>{
-    (async () => {
-      try {
-        let userMemos = []
-        const currentUser = auth.currentUser
-        const snapShot = await getDocs(collection(db, 'users', currentUser.uid, 'memos'))
-        snapShot.forEach((doc)=>{
+    let unsubscribe = () => {}
+    try {
+      let userMemos = []
+      const currentUser = auth.currentUser
+      const usersMemoCollectionRef = collection(db, 'users', currentUser.uid, 'memos');
+      const q = query(usersMemoCollectionRef, orderBy('updatedAt', 'desc'));
+
+      unsubscribe = onSnapshot(
+        q,
+        //(collection(db, 'users', currentUser.uid, 'memos')),
+        (snapShot) => {
+          snapShot.forEach((doc)=>{
           const data = doc.data()
           console.log(doc.id)
           userMemos.push({
@@ -33,12 +40,16 @@ export default function MemoListScreen(props) {
           })
         })
         setMemos(userMemos)
-      } catch (error) {
-        console.log('MemoScreen useEffect エラー発生', error)
-      }    
-  
-    })()
-   
+      },
+      (error) => {
+        console.log('onSnap エラー発生', error)
+      }
+    )
+    }catch(error){
+      console.log('MemoScreen useEffect エラー発生', error)
+
+    }
+    return unsubscribe
   }, [])
 
   return(
