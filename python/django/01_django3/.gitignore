@@ -1,3 +1,3 @@
 /db/data
-/db/data/env/mysql.env
+/db/env/mysql.env
 *.memo
