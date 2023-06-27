@@ -5,6 +5,9 @@ from django.views.generic.base import (
 from datetime import datetime
 #from django.http import HttpResponse
 from django.shortcuts import redirect
+import json
+from django.http.response import JsonResponse
+from django.core import serializers
 
 from .models import Topic
 
@@ -61,4 +64,33 @@ class IndexView(TemplateView):
         print("update")
 
     return redirect('topics:index')
- 
+
+
+
+class Api(View):
+  
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    print(kwargs)
+
+    topics = Topic.objects.all().order_by('id').reverse()
+
+    context['time'] = datetime.now()
+    context['Topics'] = topics
+
+    return context
+
+  def get(self, request, *args, **kwargs):
+
+    topics = Topic.objects.all().order_by('id').reverse()
+    print("get  💰")
+#    print(topics)
+    jsonRes = serializers.serialize("json", topics)
+#    print("get  💰💰")
+#    print(jsonRes)
+#    jsonRes2 = list(topics.values())
+#    print("get  💰💰💰")
+#    print(jsonRes2)
+
+    return JsonResponse(jsonRes, safe=False)
+
