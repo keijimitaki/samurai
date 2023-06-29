@@ -1,9 +1,9 @@
 <template>
   <div>
-    ヘッダ2
+    オリジナル！original
     <Navbar />
     <slot />
-    テスト
   </div>
-
+  ヤッホー
+  
 </template>
