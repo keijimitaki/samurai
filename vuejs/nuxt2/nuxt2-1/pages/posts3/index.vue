@@ -1,0 +1,29 @@
+<template>
+  <div>
+    <h1>記事一覧 {{ $route.name }}</h1>
+    <ul>
+      <li v-for="post in posts" :key="post.id">
+        {{ post.title }}
+      </li>
+      {{
+        posts
+      }}
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  async mounted() {
+    const posts = await this.$axios.$get(
+      "https://jsonplaceholder.typicode.com/posts/"
+    );
+    this.posts = posts;
+  },
+};
+</script>
