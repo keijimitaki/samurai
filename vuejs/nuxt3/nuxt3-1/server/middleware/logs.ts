@@ -1,3 +1,3 @@
 export default defineEventHandler((event) =>
-  console.log('Middleware 呼ばれた: ' + event.node.req.url)
+  console.log('middleware[server]called: ' + event.node.req.url)
 );
