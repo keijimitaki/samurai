@@ -84,13 +84,11 @@ class Api(View):
 
     topics = Topic.objects.all().order_by('id').reverse()
     print("get  💰")
-#    print(topics)
     jsonRes = serializers.serialize("json", topics)
-#    print("get  💰💰")
-#    print(jsonRes)
-#    jsonRes2 = list(topics.values())
-#    print("get  💰💰💰")
-#    print(jsonRes2)
 
-    return JsonResponse(jsonRes, safe=False)
+    topics_list = list(topics.values())
+    print(topics_list)
+
+    #return JsonResponse(jsonRes, safe=False)
+    return JsonResponse(topics_list, safe=False)
 
