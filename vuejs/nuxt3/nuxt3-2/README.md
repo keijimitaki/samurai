@@ -1,5 +1,7 @@
 # 参考
 https://reffect.co.jp/vue/nuxt3/
+8.Modules から 11Server API Route まで
+更に、他サーバーへのAPI通信機能の追加
 
 # nuxt server 起動
 npm run dev
